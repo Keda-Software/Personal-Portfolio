@@ -1,0 +1,736 @@
+<title>Kedir Mohammed Portfolio</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=DM+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Layout concept: dark navy "workbench". One oversized name in the hero, a profile card with floating
+   stack chips, then calm full-width bands. Boldness lives in the hero type; everything else stays quiet. */
+:root {
+  --ink: #060A18;
+  --panel: #0C1226;
+  --panel-2: #121A38;
+  --line: rgba(140, 160, 255, 0.15);
+  --text: #EEF1FF;
+  --muted: #9CA6C9;
+  --blue: #5B8CFF;
+  --violet: #9B7BFF;
+  --display: 'Bricolage Grotesque', 'Segoe UI', system-ui, sans-serif;
+  --body: 'DM Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --mono: 'JetBrains Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
+  color-scheme: dark;
+}
+html { scroll-behavior: smooth; scroll-padding-top: 84px; background: var(--ink); }
+body { margin: 0; background: var(--ink); color: var(--text); font-family: var(--body); font-size: 16px; line-height: 1.65; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+h1, h2, h3 { font-family: var(--display); text-wrap: balance; margin: 0; }
+p { margin: 0; }
+a { color: inherit; text-decoration: none; }
+.mono { font-family: var(--mono); }
+.wrap { max-width: 1120px; margin-inline: auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); min-width: 0; }
+.muted { color: var(--muted); }
+.grad-text { background: linear-gradient(100deg, var(--blue), var(--violet)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.grid-bg { background-image: linear-gradient(var(--line) 1px, transparent 1px), linear-gradient(90deg, var(--line) 1px, transparent 1px); background-size: 56px 56px; -webkit-mask-image: radial-gradient(ellipse 70% 80% at 25% 20%, #000 0%, transparent 75%); mask-image: radial-gradient(ellipse 70% 80% at 25% 20%, #000 0%, transparent 75%); }
+.glow-a { background: radial-gradient(closest-side, rgba(91,140,255,.28), transparent); }
+.glow-b { background: radial-gradient(closest-side, rgba(155,123,255,.24), transparent); }
+.panel { background: var(--panel); border: 1px solid var(--line); }
+.card { background: var(--panel); border: 1px solid var(--line); border-radius: 18px; transition: transform .25s ease, border-color .25s ease, background .25s ease; }
+.card:hover { transform: translateY(-4px); border-color: rgba(120,150,255,.5); background: var(--panel-2); }
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: .5rem; padding: .8rem 1.35rem; border-radius: 12px; font-weight: 600; font-size: .95rem; cursor: pointer; border: 1px solid transparent; transition: transform .2s ease, box-shadow .2s ease, background .2s ease, border-color .2s ease; font-family: var(--body); }
+.btn:hover { transform: translateY(-2px); }
+.btn-primary { background: linear-gradient(100deg, #3F6FF0, #7A58F0); color: #fff; box-shadow: 0 10px 30px -10px rgba(91,110,255,.7); }
+.btn-primary:hover { box-shadow: 0 14px 34px -8px rgba(110,110,255,.85); }
+.btn-ghost { background: transparent; border-color: var(--line); color: var(--text); }
+.btn-ghost:hover { border-color: var(--blue); background: rgba(91,140,255,.08); }
+.btn[disabled], .btn[aria-disabled="true"] { opacity: .55; cursor: not-allowed; transform: none; box-shadow: none; }
+.chip { display: inline-flex; align-items: center; gap: .35rem; font-family: var(--mono); font-size: .72rem; padding: .22rem .6rem; border-radius: 999px; border: 1px solid var(--line); color: var(--muted); background: rgba(255,255,255,.02); }
+.chip-ph { color: #C9B8FF; border-color: rgba(155,123,255,.45); background: rgba(155,123,255,.08); }
+.eyebrow { font-family: var(--mono); font-size: .78rem; letter-spacing: .14em; text-transform: uppercase; color: var(--blue); display: flex; align-items: center; gap: .75rem; }
+.eyebrow::before { content: ""; width: 28px; height: 1px; background: var(--blue); }
+.nav-link { position: relative; padding: .4rem .1rem; color: var(--muted); font-size: .92rem; font-weight: 500; transition: color .2s; }
+.nav-link:hover, .nav-link[aria-current="true"] { color: var(--text); }
+.nav-link::after { content: ""; position: absolute; left: 0; right: 0; bottom: -2px; height: 2px; background: linear-gradient(90deg, var(--blue), var(--violet)); transform: scaleX(0); transform-origin: left; transition: transform .25s ease; }
+.nav-link:hover::after, .nav-link[aria-current="true"]::after { transform: scaleX(1); }
+.field { width: 100%; box-sizing: border-box; background: var(--ink); border: 1px solid var(--line); color: var(--text); border-radius: 12px; padding: .8rem 1rem; font: inherit; transition: border-color .2s, box-shadow .2s; }
+.field::placeholder { color: #6C769B; }
+.field:focus { outline: none; border-color: var(--blue); box-shadow: 0 0 0 3px rgba(91,140,255,.25); }
+.field[aria-invalid="true"] { border-color: #FF7A90; }
+.err { color: #FF9AAA; font-size: .85rem; margin-top: .35rem; }
+:focus-visible { outline: 2px solid var(--blue); outline-offset: 3px; border-radius: 6px; }
+.bar { height: 6px; border-radius: 99px; background: rgba(255,255,255,.07); overflow: hidden; }
+.bar > i { display: block; height: 100%; border-radius: 99px; background: linear-gradient(90deg, var(--blue), var(--violet)); transform-origin: left; animation: grow 1.1s cubic-bezier(.2,.7,.2,1) both; }
+.rise { animation: rise .7s cubic-bezier(.2,.7,.2,1) both; }
+.float-a { animation: bob 6s ease-in-out infinite; }
+.float-b { animation: bob 7.5s ease-in-out -2s infinite; }
+.pulse { animation: pulse 2s ease-in-out infinite; }
+.spin { animation: spin 1s linear infinite; }
+@keyframes rise { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+@keyframes grow { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+@keyframes bob { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+@keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: .35; } }
+@keyframes spin { to { transform: rotate(360deg); } }
+.timeline { position: relative; }
+.timeline::before { content: ""; position: absolute; left: 19px; top: 8px; bottom: 8px; width: 1px; background: linear-gradient(var(--blue), var(--violet), transparent); }
+.cover { position: relative; overflow: hidden; height: 120px; display: flex; align-items: center; justify-content: center; }
+.cover::before { content: ""; position: absolute; inset: 0; background-image: linear-gradient(rgba(255,255,255,.07) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.07) 1px, transparent 1px); background-size: 22px 22px; }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+}
+</style>
+
+<div id="root"></div>
+
+<script src="https://cdn.tailwindcss.com/3.4.17"></script>
+<script>
+  tailwind.config = {
+    theme: { extend: {
+      colors: { ink: 'var(--ink)', panel: 'var(--panel)', line: 'var(--line)', blue: 'var(--blue)', violet: 'var(--violet)' },
+      fontFamily: { display: ['Bricolage Grotesque', 'system-ui', 'sans-serif'] }
+    } }
+  };
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.3.1/umd/react.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.3.1/umd/react-dom.production.min.js"></script>
+<script src="https://unpkg.com/lucide-react@0.263.1/dist/umd/lucide-react.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.24.7/babel.min.js"></script>
+
+<script type="text/babel">
+const { useState, useEffect, useRef } = React;
+
+/* =====================================================================
+   1. YOUR DETAILS. Edit this one object and the whole site updates.
+   Anything written in [square brackets] is a placeholder to replace.
+   ===================================================================== */
+const DATA = {
+  showPlaceholderNotes: true,          // set to false once your real details are in
+  name: "Kedir Mohammed",
+  title: "Full-Stack Developer",
+  location: "Kombolcha",
+  photo: "",                           // paste an image URL or data URI to replace the photo placeholder
+  email: "kedir.Software@gmail.com",
+  phone: "[+251 000 000 000]",         // placeholder, replace with your number
+  github: "https://github.com/Keda-Software",
+  linkedin: "https://www.linkedin.com/in/kedir-mohammed369",
+  extraSocials: [                      // optional, e.g. { label: "Telegram", icon: "Send", url: "https://t.me/yourname" }
+  ],
+  formEndpoint: "",                    // optional, e.g. a Formspree URL. Leave empty to use the copy-your-message fallback.
+  intro: "I build web applications from the interface down to the database, and I teach what I learn.",
+  aboutParagraphs: [
+    "I'm a Software Engineering student at Wollo University and a trainer at AppFactory Academy. I work across the stack, from HTML, CSS and Tailwind on the front end to Node.js, Python and MongoDB behind it.",
+    "Alongside my degree I take Microsoft and AWS courses, and I'm learning AI and cloud architecture so the systems I build can grow beyond a single machine.",
+  ],
+  interests: ["Web development", "Artificial intelligence", "Cloud architecture", "Teaching and mentoring"],
+  goal: "[Add your career goal here, for example the kind of team, product or problem you want to work on next.]",
+  different: [
+    { icon: "Users",   title: "I teach what I build",  text: "Training at AppFactory Academy keeps my fundamentals sharp and my explanations clear." },
+    { icon: "Layers",  title: "Whole-stack thinking",  text: "I move comfortably between UI, API and database instead of stopping at one layer." },
+    { icon: "Cloud",   title: "Learning cloud and AI", text: "Microsoft and AWS courses plus self-study in AI and cloud architecture." },
+    { icon: "HeartHandshake", title: "Team first",          text: "Team management and collaboration are part of how I work, not an afterthought." },
+  ],
+  // level is 0 to 100. These numbers are placeholders, set them to match your own honest rating.
+  skills: [
+    { name: "HTML",       icon: "Code2",    level: 90, group: "Frontend" },
+    { name: "CSS",        icon: "Palette",  level: 85, group: "Frontend" },
+    { name: "Tailwind",   icon: "Wind",     level: 80, group: "Frontend" },
+    { name: "JavaScript", icon: "FileCode",   level: 80, group: "Language" },
+    { name: "React",      icon: "Atom",     level: 75, group: "Frontend" },
+    { name: "Node.js",    icon: "Server",   level: 70, group: "Backend" },
+    { name: "Python",     icon: "Terminal", level: 65, group: "Language" },
+    { name: "MongoDB",    icon: "Database", level: 65, group: "Database" },
+  ],
+  learning: ["Artificial intelligence", "Cloud architecture", "Microsoft courses", "AWS courses"],
+  // demo: add a live URL to switch on the Live Demo button. code: add each repo URL (defaults to your GitHub profile).
+  projects: [
+    { title: "Attendance System", icon: "UserCheck", category: "Full-stack", desc: "Records attendance for a class and keeps a history that can be reviewed. [Replace with your real description.]", tags: ["React", "Node.js", "MongoDB"], demo: "", code: "" },
+    { title: "Bank Management", icon: "Landmark", category: "Full-stack", desc: "Manages accounts, deposits, withdrawals and balances. [Replace with your real description.]", tags: ["Node.js", "MongoDB", "JavaScript"], demo: "", code: "" },
+    { title: "Student Management System", icon: "GraduationCap", category: "Full-stack", desc: "Stores student records with add, edit, search and delete. [Replace with your real description.]", tags: ["React", "Node.js", "MongoDB"], demo: "", code: "" },
+    { title: "BMI Calculator", icon: "Activity", category: "Frontend", desc: "Turns height and weight into a BMI value with a clear category. [Replace with your real description.]", tags: ["HTML", "CSS", "JavaScript"], demo: "", code: "" },
+    { title: "Simple Calculator", icon: "Calculator", category: "Frontend", desc: "A clean calculator for everyday arithmetic. [Replace with your real description.]", tags: ["HTML", "CSS", "JavaScript"], demo: "", code: "" },
+    { title: "Currency Converter", icon: "ArrowLeftRight", category: "Frontend", desc: "Converts an amount between currencies. [Replace with your real description.]", tags: ["JavaScript", "API"], demo: "", code: "" },
+    { title: "Calendar", icon: "CalendarDays", category: "Frontend", desc: "A month view with navigation between months. [Replace with your real description.]", tags: ["HTML", "CSS", "JavaScript"], demo: "", code: "" },
+    { title: "Digital Clock", icon: "Clock", category: "Frontend", desc: "A live clock that updates every second. [Replace with your real description.]", tags: ["HTML", "CSS", "JavaScript"], demo: "", code: "" },
+    { title: "Real-time Character Counter", icon: "Type", category: "Frontend", desc: "Counts characters and words as you type. [Replace with your real description.]", tags: ["HTML", "CSS", "JavaScript"], demo: "", code: "" },
+    { title: "To-Do List", icon: "ListChecks", category: "Frontend", desc: "Add, complete and remove tasks. [Replace with your real description.]", tags: ["HTML", "CSS", "JavaScript"], demo: "", code: "" },
+  ],
+  // dates are placeholders. Replace [Year] with real years and add certificate names.
+  timeline: [
+    { type: "Experience", icon: "Briefcase", title: "Trainer", org: "AppFactory Academy", period: "[Start year] to Present", text: "Teaching learners software development. [Add the courses or topics you teach.]" },
+    { type: "Education", icon: "GraduationCap", title: "Software Engineering student", org: "Wollo University", period: "[Start year] to [Expected graduation]", text: "Studying software engineering. [Add your focus areas or notable courses.]" },
+    { type: "Training", icon: "Cloud", title: "AI and Cloud Architecture", org: "Self-directed learning", period: "In progress", text: "Learning how to design and deploy scalable systems, and how AI fits into them." },
+    { type: "Certification", icon: "Award", title: "Microsoft and AWS courses", org: "Course taker", period: "[Year]", text: "[Add the exact course or certificate names and completion dates here.]" },
+  ],
+  strengths: ["Team management", "Collaboration", "Passion for software development"],
+  services: [
+    { icon: "Globe",    title: "Web app development",   text: "End-to-end web applications built with React, Node.js and MongoDB." },
+    { icon: "Palette",  title: "Responsive front ends", text: "Clean, accessible interfaces in HTML, CSS and Tailwind that work on any screen." },
+    { icon: "Server",   title: "Backend and APIs",      text: "Node.js services and REST endpoints that connect your interface to your data." },
+    { icon: "Database", title: "Database design",       text: "MongoDB schemas and queries shaped around how your app is actually used." },
+    { icon: "Terminal", title: "Python scripting",      text: "Small tools and scripts that automate repeated work." },
+    { icon: "Users",    title: "Training and mentoring", text: "Hands-on teaching for beginners, drawn from my work as a trainer." },
+  ],
+};
+
+/* =====================================================================
+   2. SMALL HELPERS
+   ===================================================================== */
+const Lib = window.lucideReact || window.LucideReact || {};
+const Icon = ({ name, size = 20, ...rest }) => {
+  const C = Lib[name];
+  return C ? <C size={size} aria-hidden="true" {...rest} /> : <span style={{ width: size, height: size, display: "inline-block" }} />;
+};
+
+const NAV = [
+  ["home", "Home"], ["about", "About"], ["skills", "Skills"], ["projects", "Projects"],
+  ["experience", "Experience"], ["services", "Services"], ["contact", "Contact"],
+];
+
+const goTo = (id) => {
+  const el = document.getElementById(id);
+  if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+};
+
+const copyText = async (text) => {
+  try { await navigator.clipboard.writeText(text); return true; } catch (e) { return false; }
+};
+
+const socialLinks = () => [
+  { label: "GitHub", icon: "Github", url: DATA.github },
+  { label: "LinkedIn", icon: "Linkedin", url: DATA.linkedin },
+  ...DATA.extraSocials,
+].filter((s) => s.url);
+
+function Placeholder({ children = "Placeholder" }) {
+  return DATA.showPlaceholderNotes ? <span className="chip chip-ph">{children}</span> : null;
+}
+
+function SectionHead({ eyebrow, title, intro, note }) {
+  return (
+    <div className="mb-10 md:mb-14 max-w-2xl">
+      <p className="eyebrow">{eyebrow}</p>
+      <h2 className="mt-4 text-3xl md:text-5xl font-extrabold tracking-tight leading-[1.08]">{title}</h2>
+      {intro && <p className="muted mt-4 text-lg">{intro}</p>}
+      {note && DATA.showPlaceholderNotes && <p className="mt-4"><span className="chip chip-ph">{note}</span></p>}
+    </div>
+  );
+}
+
+/* =====================================================================
+   3. NAVIGATION
+   ===================================================================== */
+function Navbar() {
+  const [active, setActive] = useState("home");
+  const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 12);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  useEffect(() => {
+    if (!("IntersectionObserver" in window)) return;
+    const io = new IntersectionObserver(
+      (entries) => entries.forEach((e) => e.isIntersecting && setActive(e.target.id)),
+      { rootMargin: "-45% 0px -50% 0px" }
+    );
+    NAV.forEach(([id]) => { const el = document.getElementById(id); if (el) io.observe(el); });
+    return () => io.disconnect();
+  }, []);
+
+  const click = (id) => (e) => { e.preventDefault(); setOpen(false); goTo(id); };
+  const initials = DATA.name.split(" ").map((w) => w[0]).join("").slice(0, 2);
+
+  return (
+    <header
+      style={{ position: "sticky", top: "env(safe-area-inset-top, 0px)", zIndex: 50, background: scrolled || open ? "rgba(6,10,24,.88)" : "transparent", backdropFilter: "blur(14px)", WebkitBackdropFilter: "blur(14px)", borderBottom: scrolled || open ? "1px solid var(--line)" : "1px solid transparent", transition: "background .3s, border-color .3s" }}
+    >
+      <div className="wrap flex items-center justify-between h-16">
+        <a href="#home" onClick={click("home")} className="flex items-center gap-3 font-display font-extrabold text-lg" aria-label={DATA.name + " home"}>
+          <span className="grid place-items-center w-9 h-9 rounded-xl text-sm" style={{ background: "linear-gradient(135deg,#3F6FF0,#7A58F0)" }}>{initials}</span>
+          <span className="hidden sm:inline">{DATA.name}</span>
+        </a>
+        <nav className="hidden lg:flex items-center gap-7" aria-label="Primary">
+          {NAV.slice(0, -1).map(([id, label]) => (
+            <a key={id} href={"#" + id} onClick={click(id)} className="nav-link" aria-current={active === id}>{label}</a>
+          ))}
+          <a href="#contact" onClick={click("contact")} className="btn btn-primary" style={{ padding: ".55rem 1.1rem" }}>Contact</a>
+        </nav>
+        <button className="lg:hidden grid place-items-center w-11 h-11 rounded-xl" style={{ border: "1px solid var(--line)" }} onClick={() => setOpen(!open)} aria-expanded={open} aria-controls="mobile-menu" aria-label={open ? "Close menu" : "Open menu"}>
+          <Icon name={open ? "X" : "Menu"} />
+        </button>
+      </div>
+      {open && (
+        <nav id="mobile-menu" className="lg:hidden wrap pb-5 flex flex-col" aria-label="Mobile">
+          {NAV.map(([id, label]) => (
+            <a key={id} href={"#" + id} onClick={click(id)} className="py-3 text-lg font-medium" style={{ borderTop: "1px solid var(--line)", color: active === id ? "var(--text)" : "var(--muted)" }}>{label}</a>
+          ))}
+        </nav>
+      )}
+    </header>
+  );
+}
+
+/* =====================================================================
+   4. HERO
+   ===================================================================== */
+function Hero() {
+  const [first, ...rest] = DATA.name.split(" ");
+  const stats = [
+    [DATA.projects.length, "Projects built"],
+    [DATA.skills.length, "Core skills"],
+    [DATA.learning.length > 0 ? 2 : 0, "Learning paths"],
+  ];
+  return (
+    <section id="home" className="relative overflow-hidden">
+      <div className="grid-bg absolute inset-0" aria-hidden="true" />
+      <div className="glow-a absolute -top-24 -left-24 w-[520px] h-[520px] max-w-full" aria-hidden="true" />
+      <div className="glow-b absolute top-40 right-[-120px] w-[480px] h-[480px]" aria-hidden="true" />
+      <div className="wrap relative grid lg:grid-cols-[1.3fr_1fr] gap-14 items-center py-14 md:py-24">
+        <div className="min-w-0">
+          <p className="rise mono inline-flex items-center gap-2 text-sm muted" style={{ animationDelay: ".05s" }}>
+            <span className="pulse inline-block w-2 h-2 rounded-full" style={{ background: "#4ADE9A" }} />
+            {DATA.title} · {DATA.location}
+          </p>
+          <h1 className="rise mt-6 font-extrabold tracking-tight leading-[0.95] text-[clamp(2.9rem,9vw,6.4rem)]" style={{ animationDelay: ".15s" }}>
+            {first}<br /><span className="grad-text">{rest.join(" ")}</span>
+          </h1>
+          <p className="rise mt-7 text-xl md:text-2xl font-display font-medium" style={{ animationDelay: ".25s" }}>
+            {DATA.title} who builds the whole product.
+          </p>
+          <p className="rise muted mt-4 text-lg max-w-xl" style={{ animationDelay: ".35s" }}>{DATA.intro}</p>
+          <div className="rise mt-9 flex flex-wrap gap-3" style={{ animationDelay: ".45s" }}>
+            <a href="#projects" onClick={(e) => { e.preventDefault(); goTo("projects"); }} className="btn btn-primary">View My Projects <Icon name="ArrowRight" size={18} /></a>
+            <a href="#contact" onClick={(e) => { e.preventDefault(); goTo("contact"); }} className="btn btn-ghost"><Icon name="Mail" size={18} /> Contact Me</a>
+          </div>
+          <dl className="rise mt-12 flex flex-wrap gap-x-10 gap-y-5" style={{ animationDelay: ".55s" }}>
+            {stats.map(([n, l]) => (
+              <div key={l}>
+                <dt className="sr-only">{l}</dt>
+                <dd className="m-0 font-display font-extrabold text-4xl" style={{ fontVariantNumeric: "tabular-nums" }}>{n}</dd>
+                <p className="muted text-sm mono mt-1">{l}</p>
+              </div>
+            ))}
+          </dl>
+        </div>
+
+        <div className="rise relative mx-auto w-full max-w-[380px]" style={{ animationDelay: ".3s" }}>
+          <div className="absolute -inset-3 rounded-[34px] opacity-70" style={{ background: "linear-gradient(135deg, rgba(91,140,255,.45), rgba(155,123,255,.35), transparent 70%)", filter: "blur(22px)" }} aria-hidden="true" />
+          <div className="panel relative rounded-[28px] overflow-hidden aspect-[4/5]">
+            {DATA.photo ? (
+              <img src={DATA.photo} alt={"Portrait of " + DATA.name} className="w-full h-full object-cover" />
+            ) : (
+              <div className="w-full h-full grid place-items-center text-center p-8" style={{ background: "linear-gradient(160deg, var(--panel-2), var(--panel))" }}>
+                <div>
+                  <div className="mx-auto grid place-items-center w-28 h-28 rounded-full font-display font-extrabold text-4xl" style={{ background: "linear-gradient(135deg,#3F6FF0,#7A58F0)" }}>
+                    {DATA.name.split(" ").map((w) => w[0]).join("").slice(0, 2)}
+                  </div>
+                  <p className="mt-6 mono text-sm muted">Profile photo placeholder</p>
+                  <p className="mt-1 text-xs muted">Set <span className="mono">DATA.photo</span> to your image</p>
+                </div>
+              </div>
+            )}
+          </div>
+          <div className="float-a panel absolute -left-3 sm:-left-8 top-10 rounded-2xl px-4 py-3 flex items-center gap-3" style={{ background: "rgba(12,18,38,.92)" }}>
+            <Icon name="Atom" size={18} style={{ color: "var(--blue)" }} /><span className="mono text-sm">React</span>
+          </div>
+          <div className="float-b panel absolute -right-2 sm:-right-6 top-1/2 rounded-2xl px-4 py-3 flex items-center gap-3" style={{ background: "rgba(12,18,38,.92)" }}>
+            <Icon name="Server" size={18} style={{ color: "var(--violet)" }} /><span className="mono text-sm">Node.js</span>
+          </div>
+          <div className="float-a panel absolute -left-2 sm:-left-6 bottom-8 rounded-2xl px-4 py-3" style={{ background: "rgba(12,18,38,.92)" }}>
+            <p className="mono text-[11px] muted uppercase tracking-widest">Now learning</p>
+            <p className="text-sm font-semibold mt-0.5">AI · Cloud Architecture</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* =====================================================================
+   5. ABOUT
+   ===================================================================== */
+function About() {
+  return (
+    <section id="about" className="py-20 md:py-28">
+      <div className="wrap">
+        <SectionHead eyebrow="About" title="Student, trainer and builder." />
+        <div className="grid lg:grid-cols-[1.1fr_1fr] gap-12">
+          <div className="space-y-5 text-lg muted min-w-0">
+            {DATA.aboutParagraphs.map((p, i) => <p key={i}>{p}</p>)}
+            <div>
+              <h3 className="text-base font-bold" style={{ color: "var(--text)" }}>Interests</h3>
+              <div className="flex flex-wrap gap-2 mt-3">
+                {DATA.interests.map((t) => <span key={t} className="chip" style={{ fontSize: ".82rem", padding: ".3rem .8rem" }}>{t}</span>)}
+              </div>
+            </div>
+            <div>
+              <h3 className="text-base font-bold" style={{ color: "var(--text)" }}>Where I'm heading</h3>
+              <p className="mt-2">{DATA.goal}</p>
+            </div>
+          </div>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2 gap-4 content-start">
+            {DATA.different.map((d) => (
+              <div key={d.title} className="card p-5">
+                <span className="grid place-items-center w-10 h-10 rounded-xl" style={{ background: "rgba(91,140,255,.12)", color: "var(--blue)" }}><Icon name={d.icon} size={20} /></span>
+                <h3 className="mt-4 text-lg font-bold">{d.title}</h3>
+                <p className="muted text-[.95rem] mt-1">{d.text}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* =====================================================================
+   6. SKILLS
+   ===================================================================== */
+function Skills() {
+  return (
+    <section id="skills" className="py-20 md:py-28" style={{ background: "linear-gradient(180deg, transparent, rgba(12,18,38,.7), transparent)" }}>
+      <div className="wrap">
+        <SectionHead eyebrow="Skills" title="The tools I build with." intro="From the interface to the database, plus what I'm learning next." note="Levels are placeholders. Edit DATA.skills" />
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          {DATA.skills.map((s, i) => (
+            <div key={s.name} className="card p-5">
+              <div className="flex items-center justify-between">
+                <span className="grid place-items-center w-11 h-11 rounded-xl" style={{ background: "rgba(155,123,255,.12)", color: "var(--violet)" }}><Icon name={s.icon} size={22} /></span>
+                <span className="mono text-xs muted">{s.group}</span>
+              </div>
+              <div className="flex items-baseline justify-between mt-5">
+                <h3 className="text-xl font-bold">{s.name}</h3>
+                <span className="mono text-sm muted" style={{ fontVariantNumeric: "tabular-nums" }}>{s.level}%</span>
+              </div>
+              <div className="bar mt-3" role="progressbar" aria-valuenow={s.level} aria-valuemin="0" aria-valuemax="100" aria-label={s.name + " skill level"}>
+                <i style={{ width: s.level + "%", animationDelay: i * 0.06 + "s" }} />
+              </div>
+            </div>
+          ))}
+        </div>
+        <div className="mt-8 flex flex-wrap items-center gap-2">
+          <span className="mono text-sm muted mr-2">Currently learning</span>
+          {DATA.learning.map((l) => <span key={l} className="chip" style={{ fontSize: ".8rem", padding: ".3rem .8rem" }}><Icon name="Sparkles" size={13} />{l}</span>)}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* =====================================================================
+   7. PROJECTS
+   ===================================================================== */
+const COVERS = [
+  "linear-gradient(135deg,#1E3A8A,#4F46E5)", "linear-gradient(135deg,#0F3D6E,#2563EB)", "linear-gradient(135deg,#312E81,#7C3AED)",
+  "linear-gradient(135deg,#1D4ED8,#6D28D9)", "linear-gradient(135deg,#1E40AF,#0EA5E9)", "linear-gradient(135deg,#4C1D95,#2563EB)",
+];
+
+function ProjectCard({ p, index }) {
+  const code = p.code || DATA.github;
+  return (
+    <article className="card overflow-hidden flex flex-col min-w-0">
+      {p.image ? (
+        <img src={p.image} alt={p.title + " screenshot"} className="w-full h-[120px] object-cover" />
+      ) : (
+        <div className="cover" style={{ background: COVERS[index % COVERS.length] }}>
+          <span className="relative grid place-items-center w-14 h-14 rounded-2xl" style={{ background: "rgba(255,255,255,.14)", border: "1px solid rgba(255,255,255,.25)" }}><Icon name={p.icon} size={28} /></span>
+        </div>
+      )}
+      <div className="p-6 flex flex-col gap-4 flex-1">
+        <div className="flex items-start justify-between gap-3">
+          <h3 className="text-xl font-bold">{p.title}</h3>
+          <span className="chip shrink-0">{p.category}</span>
+        </div>
+        <p className="muted text-[.95rem] flex-1">{p.desc}</p>
+        <div className="flex flex-wrap gap-2">{p.tags.map((t) => <span key={t} className="chip">{t}</span>)}</div>
+        <div className="flex flex-wrap gap-3 pt-1">
+          {p.demo ? (
+            <a href={p.demo} target="_blank" rel="noopener noreferrer" className="btn btn-primary" style={{ padding: ".6rem 1.05rem", fontSize: ".9rem" }}><Icon name="ExternalLink" size={16} /> Live Demo</a>
+          ) : (
+            <span className="btn btn-primary" aria-disabled="true" title="Add a live link in DATA.projects" style={{ padding: ".6rem 1.05rem", fontSize: ".9rem" }}><Icon name="ExternalLink" size={16} /> Live Demo</span>
+          )}
+          <a href={code} target="_blank" rel="noopener noreferrer" className="btn btn-ghost" style={{ padding: ".6rem 1.05rem", fontSize: ".9rem" }}><Icon name="Github" size={16} /> View Code</a>
+        </div>
+      </div>
+    </article>
+  );
+}
+
+function Projects() {
+  return (
+    <section id="projects" className="py-20 md:py-28">
+      <div className="wrap">
+        <SectionHead eyebrow="Projects" title="Things I've built." intro="Full-stack systems and small front-end tools, each one a step in learning the stack." note="Descriptions, tags and links are placeholders. Edit DATA.projects" />
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+          {DATA.projects.map((p, i) => <ProjectCard key={p.title} p={p} index={i} />)}
+        </div>
+        <p className="muted text-sm mt-6">Live Demo buttons switch on when you add a <span className="mono">demo</span> URL. View Code opens your GitHub until you add each repository link.</p>
+      </div>
+    </section>
+  );
+}
+
+/* =====================================================================
+   8. EXPERIENCE AND EDUCATION
+   ===================================================================== */
+function Experience() {
+  return (
+    <section id="experience" className="py-20 md:py-28" style={{ background: "linear-gradient(180deg, transparent, rgba(12,18,38,.7), transparent)" }}>
+      <div className="wrap">
+        <SectionHead eyebrow="Experience and education" title="Where I've learned and worked." note="Dates and certificate names are placeholders. Edit DATA.timeline" />
+        <div className="grid lg:grid-cols-[1.5fr_1fr] gap-10">
+          <ol className="timeline list-none m-0 p-0 flex flex-col gap-6">
+            {DATA.timeline.map((t) => (
+              <li key={t.title} className="relative pl-14">
+                <span className="absolute left-0 top-1 grid place-items-center w-10 h-10 rounded-full" style={{ background: "var(--panel-2)", border: "1px solid var(--line)", color: "var(--blue)" }}><Icon name={t.icon} size={18} /></span>
+                <div className="card p-5">
+                  <div className="flex flex-wrap items-center gap-2 justify-between">
+                    <span className="eyebrow" style={{ fontSize: ".7rem" }}>{t.type}</span>
+                    <span className="mono text-xs muted">{t.period}</span>
+                  </div>
+                  <h3 className="text-xl font-bold mt-2">{t.title}</h3>
+                  <p className="font-medium" style={{ color: "var(--violet)" }}>{t.org}</p>
+                  <p className="muted text-[.95rem] mt-2">{t.text}</p>
+                </div>
+              </li>
+            ))}
+          </ol>
+          <aside className="panel rounded-[18px] p-6 h-fit">
+            <h3 className="text-xl font-bold">How I work</h3>
+            <ul className="list-none m-0 p-0 mt-4 flex flex-col gap-3">
+              {DATA.strengths.map((s) => (
+                <li key={s} className="flex items-center gap-3"><span style={{ color: "var(--blue)" }}><Icon name="Check" size={18} /></span>{s}</li>
+              ))}
+            </ul>
+          </aside>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* =====================================================================
+   9. SERVICES
+   ===================================================================== */
+function Services() {
+  return (
+    <section id="services" className="py-20 md:py-28">
+      <div className="wrap">
+        <SectionHead eyebrow="Services" title="How I can help." note="Service list is a starting point. Edit DATA.services" />
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          {DATA.services.map((s) => (
+            <div key={s.title} className="card p-6">
+              <span className="grid place-items-center w-12 h-12 rounded-2xl" style={{ background: "linear-gradient(135deg, rgba(91,140,255,.2), rgba(155,123,255,.2))", color: "var(--text)" }}><Icon name={s.icon} size={22} /></span>
+              <h3 className="mt-5 text-xl font-bold">{s.title}</h3>
+              <p className="muted mt-2 text-[.95rem]">{s.text}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* =====================================================================
+   10. CONTACT (with validation and loading state)
+   ===================================================================== */
+const EMPTY = { name: "", email: "", subject: "", message: "" };
+
+function validate(v) {
+  const e = {};
+  if (v.name.trim().length < 2) e.name = "Enter your name (at least 2 characters).";
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v.email.trim())) e.email = "Enter a valid email address, like name@example.com.";
+  if (v.subject.trim().length < 3) e.subject = "Add a short subject (at least 3 characters).";
+  if (v.message.trim().length < 10) e.message = "Write at least 10 characters so I know how to help.";
+  return e;
+}
+
+function Field({ id, label, error, children }) {
+  return (
+    <div>
+      <label htmlFor={id} className="block text-sm font-semibold mb-2">{label}</label>
+      {children}
+      {error && <p id={id + "-err"} className="err" role="alert">{error}</p>}
+    </div>
+  );
+}
+
+function Contact() {
+  const [values, setValues] = useState(EMPTY);
+  const [errors, setErrors] = useState({});
+  const [touched, setTouched] = useState({});
+  const [status, setStatus] = useState("idle"); // idle | loading | ready | sent | error
+  const [copied, setCopied] = useState("");
+  const draftRef = useRef(null);
+
+  const set = (k) => (e) => {
+    const next = { ...values, [k]: e.target.value };
+    setValues(next);
+    if (touched[k]) setErrors(validate(next));
+  };
+  const blur = (k) => () => { setTouched({ ...touched, [k]: true }); setErrors(validate(values)); };
+  const show = (k) => (touched[k] ? errors[k] : undefined);
+
+  const draft = "To: " + DATA.email + "\nSubject: " + values.subject.trim() + "\n\nHi " + DATA.name.split(" ")[0] + ",\n\n" + values.message.trim() + "\n\nFrom " + values.name.trim() + " (" + values.email.trim() + ")";
+
+  const submit = async (e) => {
+    e.preventDefault();
+    const found = validate(values);
+    setErrors(found);
+    setTouched({ name: true, email: true, subject: true, message: true });
+    if (Object.keys(found).length) {
+      const first = ["name", "email", "subject", "message"].find((k) => found[k]);
+      const el = document.getElementById("f-" + first);
+      if (el) el.focus();
+      return;
+    }
+    setStatus("loading");
+    if (DATA.formEndpoint) {
+      try {
+        const res = await fetch(DATA.formEndpoint, { method: "POST", headers: { "Content-Type": "application/json", Accept: "application/json" }, body: JSON.stringify(values) });
+        setStatus(res.ok ? "sent" : "error");
+      } catch (err) { setStatus("error"); }
+      return;
+    }
+    setTimeout(() => setStatus("ready"), 700);
+  };
+
+  const doCopy = async (key, text) => {
+    const ok = await copyText(text);
+    if (ok) { setCopied(key); setTimeout(() => setCopied(""), 2000); }
+    else if (key === "draft" && draftRef.current) { draftRef.current.focus(); draftRef.current.select(); setCopied("manual"); }
+  };
+
+  const reset = () => { setValues(EMPTY); setErrors({}); setTouched({}); setStatus("idle"); };
+  const mailHref = "mailto:" + DATA.email + "?subject=" + encodeURIComponent(values.subject) + "&body=" + encodeURIComponent(values.message);
+
+  return (
+    <section id="contact" className="py-20 md:py-28" style={{ background: "linear-gradient(180deg, transparent, rgba(12,18,38,.8))" }}>
+      <div className="wrap">
+        <SectionHead eyebrow="Contact" title="Let's build something." intro="Send a message about a project, a course, or a chance to work together." />
+        <div className="grid lg:grid-cols-[1fr_1.2fr] gap-8">
+          <div className="flex flex-col gap-4 min-w-0">
+            <div className="card p-5 flex items-center gap-4" style={{ transform: "none" }}>
+              <span className="grid place-items-center w-11 h-11 rounded-xl shrink-0" style={{ background: "rgba(91,140,255,.12)", color: "var(--blue)" }}><Icon name="Mail" size={20} /></span>
+              <div className="min-w-0 flex-1">
+                <p className="mono text-xs muted uppercase tracking-widest">Email</p>
+                <a href={"mailto:" + DATA.email} className="font-semibold break-all hover:underline">{DATA.email}</a>
+              </div>
+              <button type="button" className="btn btn-ghost shrink-0" style={{ padding: ".5rem .7rem" }} onClick={() => doCopy("email", DATA.email)} aria-label="Copy email address">
+                <Icon name={copied === "email" ? "Check" : "Copy"} size={16} />
+              </button>
+            </div>
+            <div className="card p-5 flex items-center gap-4" style={{ transform: "none" }}>
+              <span className="grid place-items-center w-11 h-11 rounded-xl shrink-0" style={{ background: "rgba(155,123,255,.12)", color: "var(--violet)" }}><Icon name="Phone" size={20} /></span>
+              <div className="min-w-0">
+                <p className="mono text-xs muted uppercase tracking-widest">Phone</p>
+                <p className="font-semibold break-words">{DATA.phone}</p>
+              </div>
+            </div>
+            <div className="card p-5 flex items-center gap-4" style={{ transform: "none" }}>
+              <span className="grid place-items-center w-11 h-11 rounded-xl shrink-0" style={{ background: "rgba(91,140,255,.12)", color: "var(--blue)" }}><Icon name="MapPin" size={20} /></span>
+              <div>
+                <p className="mono text-xs muted uppercase tracking-widest">Location</p>
+                <p className="font-semibold">{DATA.location}</p>
+              </div>
+            </div>
+            <div className="flex flex-wrap gap-3 mt-2">
+              {socialLinks().map((s) => (
+                <a key={s.label} href={s.url} target="_blank" rel="noopener noreferrer" className="btn btn-ghost"><Icon name={s.icon} size={18} /> {s.label}</a>
+              ))}
+            </div>
+          </div>
+
+          <div className="panel rounded-[22px] p-6 md:p-8 min-w-0">
+            {status === "ready" || status === "sent" ? (
+              <div role="status">
+                <span className="grid place-items-center w-12 h-12 rounded-full" style={{ background: "rgba(74,222,154,.14)", color: "#4ADE9A" }}><Icon name="Check" size={24} /></span>
+                {status === "sent" ? (
+                  <>
+                    <h3 className="text-2xl font-bold mt-5">Message sent</h3>
+                    <p className="muted mt-2">Thanks, {values.name.split(" ")[0]}. You'll get a reply at {values.email}.</p>
+                  </>
+                ) : (
+                  <>
+                    <h3 className="text-2xl font-bold mt-5">Your message is ready</h3>
+                    <p className="muted mt-2">This site has no mail server connected, so nothing was sent yet. Copy the message below and email it to {DATA.email}.</p>
+                    <label htmlFor="draft" className="sr-only">Your message</label>
+                    <textarea id="draft" ref={draftRef} readOnly value={draft} rows={8} className="field mono mt-5" style={{ fontSize: ".85rem" }} />
+                    <div className="flex flex-wrap gap-3 mt-4">
+                      <button type="button" className="btn btn-primary" onClick={() => doCopy("draft", draft)}><Icon name={copied === "draft" ? "Check" : "Copy"} size={16} /> {copied === "draft" ? "Copied" : "Copy message"}</button>
+                      <a className="btn btn-ghost" href={mailHref}><Icon name="Mail" size={16} /> Open in email app</a>
+                    </div>
+                    {copied === "manual" && <p className="muted text-sm mt-3">Copying is blocked here, so the text is selected. Press Ctrl+C (or Cmd+C) to copy it.</p>}
+                  </>
+                )}
+                <button type="button" className="btn btn-ghost mt-6" onClick={reset}>Write another message</button>
+              </div>
+            ) : (
+              <form onSubmit={submit} noValidate className="flex flex-col gap-5" aria-label="Contact form">
+                <div className="grid sm:grid-cols-2 gap-5">
+                  <Field id="f-name" label="Name" error={show("name")}>
+                    <input id="f-name" className="field" type="text" autoComplete="name" placeholder="Your name" value={values.name} onChange={set("name")} onBlur={blur("name")} aria-invalid={!!show("name")} aria-describedby={show("name") ? "f-name-err" : undefined} />
+                  </Field>
+                  <Field id="f-email" label="Email" error={show("email")}>
+                    <input id="f-email" className="field" type="email" autoComplete="email" placeholder="you@example.com" value={values.email} onChange={set("email")} onBlur={blur("email")} aria-invalid={!!show("email")} aria-describedby={show("email") ? "f-email-err" : undefined} />
+                  </Field>
+                </div>
+                <Field id="f-subject" label="Subject" error={show("subject")}>
+                  <input id="f-subject" className="field" type="text" placeholder="What is this about?" value={values.subject} onChange={set("subject")} onBlur={blur("subject")} aria-invalid={!!show("subject")} aria-describedby={show("subject") ? "f-subject-err" : undefined} />
+                </Field>
+                <Field id="f-message" label="Message" error={show("message")}>
+                  <textarea id="f-message" className="field" rows={6} placeholder="Tell me about your project or idea" value={values.message} onChange={set("message")} onBlur={blur("message")} aria-invalid={!!show("message")} aria-describedby={show("message") ? "f-message-err" : undefined} style={{ resize: "vertical" }} />
+                </Field>
+                {status === "error" && <p className="err" role="alert">The message could not be sent. Check your connection and try again, or email {DATA.email} directly.</p>}
+                <button type="submit" className="btn btn-primary self-start" disabled={status === "loading"}>
+                  {status === "loading" ? <><span className="spin inline-flex"><Icon name="Loader2" size={18} /></span> Preparing...</> : <><Icon name="Send" size={18} /> Send message</>}
+                </button>
+              </form>
+            )}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* =====================================================================
+   11. FOOTER
+   ===================================================================== */
+function Footer() {
+  return (
+    <footer style={{ borderTop: "1px solid var(--line)", background: "var(--ink)" }}>
+      <div className="wrap py-10 flex flex-col md:flex-row items-center justify-between gap-6">
+        <div className="text-center md:text-left">
+          <p className="font-display font-extrabold text-lg">{DATA.name}</p>
+          <p className="muted text-sm mt-1">© {new Date().getFullYear()} {DATA.name}. All rights reserved.</p>
+        </div>
+        <div className="flex items-center gap-3">
+          {socialLinks().map((s) => (
+            <a key={s.label} href={s.url} target="_blank" rel="noopener noreferrer" aria-label={s.label} className="grid place-items-center w-11 h-11 rounded-xl btn-ghost" style={{ border: "1px solid var(--line)", transition: "border-color .2s, transform .2s" }}><Icon name={s.icon} size={18} /></a>
+          ))}
+          <a href={"mailto:" + DATA.email} aria-label="Email" className="grid place-items-center w-11 h-11 rounded-xl" style={{ border: "1px solid var(--line)" }}><Icon name="Mail" size={18} /></a>
+          <button type="button" className="btn btn-primary" style={{ padding: ".65rem 1rem" }} onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} aria-label="Back to top"><Icon name="ArrowUp" size={18} /> Top</button>
+        </div>
+      </div>
+    </footer>
+  );
+}
+
+function App() {
+  useEffect(() => { document.title = DATA.name + " Portfolio"; }, []);
+  return (
+    <>
+      <Navbar />
+      <main>
+        <Hero /><About /><Skills /><Projects /><Experience /><Services /><Contact />
+      </main>
+      <Footer />
+    </>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+</script>
